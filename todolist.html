@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    #app {
+      width: 400px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    #header {
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+    }
+
+    #task-input {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      border: none;
+      outline: none;
+      font-size: 16px;
+    }
+
+    #task-list {
+      padding: 20px;
+    }
+
+    .task-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+      padding: 10px 0;
+    }
+
+    .task-item:last-child {
+      border-bottom: none;
+    }
+
+    .task-item-text {
+      flex-grow: 1;
+      margin-right: 10px;
+    }
+
+    .delete-button {
+      background-color: #e74c3c;
+      color: #fff;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div id="app">
+  <div id="header">
+    To-Do List
+  </div>
+  <div id="task-input-container">
+    <input type="text" id="task-input" placeholder="Add a new task...">
+  </div>
+  <div id="task-list"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const taskInput = document.getElementById('task-input');
+      const taskList = document.getElementById('task-list');
+
+      taskInput.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' && taskInput.value.trim() !== '') {
+          addTask(taskInput.value.trim());
+          taskInput.value = '';
+        }
+      });
+
+      function addTask(text) {
+        const taskItem = document.createElement('div');
+        taskItem.classList.add('task-item');
+
+        const taskItemText = document.createElement('div');
+        taskItemText.classList.add('task-item-text');
+        taskItemText.textContent = text;
+
+        const deleteButton = document.createElement('button');
+        deleteButton.classList.add('delete-button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.addEventListener('click', function () {
+          taskList.removeChild(taskItem);
+        });
+
+        taskItem.appendChild(taskItemText);
+        taskItem.appendChild(deleteButton);
+
+        taskList.appendChild(taskItem);
+      }
+    });
+  </script>
+</div>
+
+</body>
+</html>
